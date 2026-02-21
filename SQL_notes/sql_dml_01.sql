@@ -46,7 +46,7 @@ Build boolean expressions with operators that produce boolean results.
 
 Combine boolean expressions with Boolean Operators: AND, OR, NOT
 */
--- E.g., find 3rd and 4th year CSC courses
+-- Finds 3rd & 4th year CSC courses
 SELECT *
 FROM Course
 WHERE dept = 'CSC'
@@ -69,6 +69,8 @@ so all attributes are still available.
 Execution Order:
     FROM --> WHERE --> ORDER BY --> SELECT
 */
+
+-- Sort by salary (DESC)
 SELECT name, salary
 FROM employee
 ORDER BY salary DESC;
@@ -103,6 +105,7 @@ ORDER BY title;
 - Operands:  attributes, constants
 - Operators: arithmetic ops, string ops
 */
+
 SELECT sid, grade+10 AS adjusted
 FROM Took;
 
@@ -114,6 +117,7 @@ FROM Course;
 Sometimes, it makes sense for the whole expression to be a constant
 (something that does NOT involve any attributes)
 */
+
 -- Create a new column called `breadthRequirement` whose every row is 'satisfies'
 SELECT dept, cNum, 'satisfies' AS breadthRequirements
 FROM Courses
@@ -129,6 +133,7 @@ Pattern is a quoted string.
   %  <--  any string
   _  <--  any single character
 */
+
 SELECT *
 FROM Course
 WHERE name LIKE '%Comp%';
@@ -142,6 +147,7 @@ We want to compute something across across the values in a column.
 NOTE: To stop duplicates from contributing to the aggregation,
       use DISTINCT inside the brackets (does NOT affect MIN or MAX).
 */
+
 -- Removes duplicate (dept, salary) pairs
 SELECT DISTINCT dept, salary  -- DISTINCT applies to the entire row, not just one column
 FROM employee;                -- It removes duplicate tuples, not individual values
@@ -204,16 +210,18 @@ FROM employee
 GROUP BY dept;
 -------------------------------------------------------------------------------
 */
+
 -- Groups employees by dept & gives employee count per dept
 SELECT, dept, COUNT(*)
 FROM employee
-GROUP BY dept;  --> Example Result:
-                --   dept    count  --
-                ----------------------
-                --   CS      3      --
-                --   Math    2      --
-                --   HR      4      --
-                ----------------------
+GROUP BY dept;  --   Example Result   --
+                ------------------------
+                --   dept  |  count   --
+                ------------------------
+                --    CS   |    3     --
+                --   Math  |    2     --
+                --    HR   |    4     --
+                ------------------------
 
 -- Average salary per dept
 SELECT dept, AVG(salary)
@@ -244,6 +252,7 @@ GROUP BY dept;
 HAVING name = 'Alice';
 -------------------------------------------------------------------------------
 */
+
 -- Only keep departments w/ more than 2 employees
 SELECT dept, COUNT(*)
 FROM employee
@@ -283,6 +292,7 @@ Requirements: Both queries MUST have: 1. Same number of columns
 IMPORTANT: Set operations REMOVES DUPLICATES.
            You can override this with ALL. See below for example.
 */
+
 -- Students who got very high OR very low grades
 (SELECT sid FROM Took WHERE grade > 95)
 UNION
