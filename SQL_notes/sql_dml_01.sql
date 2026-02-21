@@ -38,6 +38,7 @@ SELECT *
 FROM Course
 WHERE dept = 'CSC';
 
+
 /**  Complex WHERE Conditions
 Build boolean expressions with operators that produce boolean results.
   - Comparison Operators: =, <>, <, >, <=, >=
@@ -50,6 +51,7 @@ SELECT *
 FROM Course
 WHERE dept = 'CSC'
   AND cnum >= 300;
+
 
 /**  ORDER BY
 To put tuplies in order, add this as the final clause:
@@ -96,6 +98,7 @@ SELECT name AS title, salary
 FROM employee
 ORDER BY title;
 
+
 /**  Expressions in SELECT Clauses
 - Operands:  attributes, constants
 - Operators: arithmetic ops, string ops
@@ -106,6 +109,7 @@ FROM Took;
 SELECT dept || cnum
 FROM Course;
 
+
 /**  Expressions That Are a Constant
 Sometimes, it makes sense for the whole expression to be a constant
 (something that does NOT involve any attributes)
@@ -114,6 +118,7 @@ Sometimes, it makes sense for the whole expression to be a constant
 SELECT dept, cNum, 'satisfies' AS breadthRequirements
 FROM Courses
 WHERE breadth;
+
 
 /**  Pattern Operators
 Two ways to compare a string to a pattern, by:
@@ -127,6 +132,7 @@ Pattern is a quoted string.
 SELECT *
 FROM Course
 WHERE name LIKE '%Comp%';
+
 
 /**  Aggregation: Computing on a Column
 We want to compute something across across the values in a column.
@@ -177,6 +183,7 @@ WHERE dept = 'CSC';
 SELECT COUNT(*), AVG(salary), MIN(salary), MAX(salary)
 FROM employee;
 
+
 /**  Aggregation: GROUP BY
 GROUP BY partitions rows into groups, and aggregation gives one value per group.
 
@@ -212,6 +219,7 @@ GROUP BY dept;  --> Example Result:
 SELECT dept, AVG(salary)
 FROM employee
 GROUP BY dept;
+
 
 /**  Aggregation: HAVING
  WHERE lets you decide which TUPLES to keep
@@ -265,6 +273,7 @@ FROM employee
 GROUP BY dept
 HAVING AVG(salary) > 70000;
 
+
 /**  Set Operations
   UNION, INTERSECT, EXCEPT
 
@@ -294,9 +303,3 @@ EXCEPT
 (SELECT sid FROM Took)
 UNION ALL
 (SELECT sid FROM TOOK);
-
-
-
-
-
-
