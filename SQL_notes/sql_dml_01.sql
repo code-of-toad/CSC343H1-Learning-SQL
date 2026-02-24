@@ -1,3 +1,24 @@
+/*
+ * TABLE OF CONTENTS
+ * -----------------
+ * 1.  DDL vs DML (overview)
+ * 2.  Query with one relation
+ * 3.  Query with multiple relations
+ * 4.  Re-naming tables (aliases)
+ * 5.  Self-joins
+ * 6.  Re-naming attributes (AS)
+ * 7.  * in SELECT clauses
+ * 8.  Complex WHERE conditions
+ * 9.  ORDER BY
+ * 10. Expressions in SELECT clauses
+ * 11. Expressions that are a constant
+ * 12. Pattern operators (LIKE / NOT LIKE)
+ * 13. Aggregation: computing on a column (SUM, AVG, COUNT, MIN, MAX)
+ * 14. Aggregation: GROUP BY
+ * 15. Aggregation: HAVING
+ * 16. Set operations (UNION, INTERSECT, EXCEPT)
+ */
+
 /**
 SQL has 2 subparts:
   1. DDL (Data Definition Language):   Define schemas
