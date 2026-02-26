@@ -19,6 +19,7 @@
  * 16. Set operations (UNION, INTERSECT, EXCEPT)
  */
 
+
 /**
 SQL has 2 subparts:
   1. DDL (Data Definition Language):   Define schemas

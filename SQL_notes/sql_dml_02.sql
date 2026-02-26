@@ -6,6 +6,7 @@
  * 3. Outer joins
  */
 
+
 /**  Views
 VIEW is a relation def'd in terms of stored tables (called base tables)
 and other views. Access a VIEW like any base table.
