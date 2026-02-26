@@ -4,11 +4,13 @@
 SET SEARCH_PATH TO Recommender;
 
 
--- You may find it convenient to do this for each of the views
--- that define your intermediate steps. (But give them better names!)
-DROP VIEW IF EXISTS IntermediateStep CASCADE;
-
--- Define views for your intermediate steps here:
-CREATE VIEW IntermediateStep AS ... ;
-
+-- Sale: 20% off only on items that have sold at least 10 units (total quantity).
+UPDATE Item
+SET price = price * 0.8
+WHERE IID IN (
+    SELECT IID
+    FROM LineItem
+    GROUP BY IID
+    HAVING SUM(quantity) >= 10
+);
 
