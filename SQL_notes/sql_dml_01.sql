@@ -1,23 +1,65 @@
 /*
- * TABLE OF CONTENTS
- * -----------------
- * 1.  DDL vs DML (overview)
- * 2.  Query with one relation
- * 3.  Query with multiple relations
- * 4.  Re-naming tables (aliases)
- * 5.  Self-joins
- * 6.  Re-naming attributes (AS)
- * 7.  * in SELECT clauses
- * 8.  Complex WHERE conditions
- * 9.  ORDER BY
- * 10. Expressions in SELECT clauses
- * 11. Expressions that are a constant
- * 12. Pattern operators (LIKE / NOT LIKE)
- * 13. Aggregation: computing on a column (SUM, AVG, COUNT, MIN, MAX)
- * 14. Aggregation: GROUP BY
- * 15. Aggregation: HAVING
- * 16. Set operations (UNION, INTERSECT, EXCEPT)
- */
+===========================================================
+TABLE OF CONTENTS — SQL BASICS (DML FOCUS) + QUERY BEHAVIOR
+===========================================================
+
+1. SQL Subparts
+   1.1 DDL vs DML (Schemas vs Queries/Updates)
+
+2. Basic SELECT Queries
+   2.1 Single-Relation Query (SELECT-FROM-WHERE)
+   2.2 Multi-Relation Query (Implicit Join via FROM + WHERE)
+   2.3 Renaming Tables with Aliases (Statement-Local)
+   2.4 Self-Joins (Aliasing Required)
+   2.5 Renaming Output Attributes with AS
+   2.6 SELECT * (All Columns)
+
+3. Complex WHERE Conditions
+   3.1 Comparison Operators (=, <>, <, >, <=, >=)
+   3.2 Boolean Connectives (AND / OR / NOT)
+
+4. ORDER BY
+   4.1 Sorting Direction (ASC default, DESC override)
+   4.2 Multi-Key Sorting (Primary then Secondary)
+   4.3 Ordering by Expressions (Computed Sort Keys)
+   4.4 ORDER BY Columns Not in SELECT
+   4.5 ORDER BY with Aliased Output Names
+   4.6 Execution Order Mental Model (FROM → WHERE → ORDER BY → SELECT)
+
+5. Expressions in SELECT
+   5.1 Arithmetic Expressions (e.g., grade + 10)
+   5.2 String Concatenation (||)
+   5.3 Constant Expressions (Literal Columns via '...' AS ...)
+
+6. Pattern Matching
+   6.1 LIKE / NOT LIKE
+   6.2 Wildcards (% for any string, _ for one character)
+
+7. Aggregation (Single Group)
+   7.1 Aggregate Functions (SUM, AVG, COUNT, MIN, MAX)
+   7.2 COUNT(*) vs COUNT(col) (Row-count vs non-NULL count)
+   7.3 DISTINCT Inside Aggregates (Deduplicate Inputs)
+   7.4 DISTINCT on Rows (SELECT DISTINCT ... removes duplicate tuples)
+   7.5 Mixing Multiple Aggregates in One SELECT
+
+8. GROUP BY (Multiple Groups)
+   8.1 Grouping Semantics (Partition rows, aggregate per group)
+   8.2 Core Rule: Every SELECT column must be Aggregated or Grouped
+   8.3 Common Patterns (counts per group, averages per group)
+
+9. HAVING (Filtering Groups)
+   9.1 WHERE vs HAVING (Rows vs Groups)
+   9.2 Core Rule: HAVING references must be Aggregated or Grouped
+   9.3 Combined Pipeline: WHERE → GROUP BY → HAVING
+
+10. Set Operations
+    10.1 UNION / INTERSECT / EXCEPT
+    10.2 Compatibility Requirements (same #cols, compatible types)
+    10.3 Duplicate Elimination by Default
+    10.4 Preserving Duplicates with ALL (e.g., UNION ALL)
+
+===========================================================
+*/
 
 
 /**

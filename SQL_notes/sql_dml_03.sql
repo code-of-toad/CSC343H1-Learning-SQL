@@ -1,18 +1,58 @@
 /*
- * TABLE OF CONTENTS
- * -----------------
- * 1. 3-Valued Logic (TRUE / FALSE / UNKNOWN)
- * 2. NULL in PostgreSQL (Comparison Rules)
- * 3. WHERE Only Keeps TRUE
- * 4. NOT with NULL
- * 5. AND / OR with NULL (3-Valued Logic)
- * 6. The NOT IN Trap (NULL Poisoning)
- * 7. Aggregates and NULL Behavior
- * 8. DISTINCT and NULL
- * 9. JOIN Behavior with NULL
- * 10. GROUP BY and NULL
- * 11. UNIQUE Constraint and NULL (PostgreSQL)
- */
+===========================================================
+TABLE OF CONTENTS — 3-VALUED LOGIC + NULL BEHAVIOR (PostgreSQL)
+===========================================================
+
+1. 3-Valued Logic (TRUE / FALSE / UNKNOWN)
+   1.1 Numeric Mapping (T=1, F=0, U=0.5)
+   1.2 Operators as Functions (AND=min, OR=max, NOT=1-x)
+   1.3 Truth Tables
+       - NOT
+       - AND
+       - OR
+
+2. NULL in PostgreSQL Comparisons
+   2.1 Any comparison with NULL → UNKNOWN
+   2.2 Correct Predicates: IS NULL / IS NOT NULL (never = NULL)
+
+3. WHERE Keeps Only TRUE
+   3.1 FALSE and UNKNOWN rows are filtered out
+   3.2 “Show-the-evaluation” SELECT patterns
+
+4. NOT with NULL
+   4.1 NOT UNKNOWN = UNKNOWN (no “fixing”)
+   4.2 WHERE NOT(P) still drops UNKNOWN rows
+
+5. AND / OR with NULL (3VL Propagation)
+   5.1 Decisive Short-Circuits (FALSE in AND, TRUE in OR)
+   5.2 When UNKNOWN propagates (no decisive value)
+
+6. The NOT IN Trap (NULL Poisoning)
+   6.1 Expansion: x NOT IN (list) ≡ (x<>v1) AND ... AND (x<>vn)
+   6.2 Any NULL in list can yield UNKNOWN → row dropped
+   6.3 Safe Alternative: NOT EXISTS (NULL-safe anti-join)
+
+7. Aggregates and NULL
+   7.1 NULLs ignored by SUM/AVG/MIN/MAX/COUNT(col)
+   7.2 COUNT(*) counts rows (includes NULL-bearing rows)
+   7.3 All-NULL input edge cases (SUM/AVG/MIN/MAX → NULL)
+
+8. DISTINCT and NULL
+   8.1 DISTINCT treats multiple NULLs as duplicates (single NULL output)
+
+9. JOIN and NULL Equality
+   9.1 Join predicates must be TRUE to match
+   9.2 NULL = NULL → UNKNOWN, so NULL keys don’t match with '='
+   9.3 Explicit NULL-matching join predicate pattern
+
+10. GROUP BY and NULL
+    10.1 NULLs form a single group (not discarded)
+
+11. UNIQUE Constraint and NULL (PostgreSQL)
+    11.1 Multiple NULLs allowed (NULL not equal to NULL for uniqueness)
+
+===========================================================
+*/
 
 
 /**  3-Valued Logic (TRUE / FALSE / UNKNOWN)

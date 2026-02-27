@@ -1,10 +1,49 @@
 /*
- * TABLE OF CONTENTS
- * -----------------
- * 1. Views
- * 2. Inner joins
- * 3. Outer joins
- */
+===========================================================
+TABLE OF CONTENTS — VIEWS + JOINS (PostgreSQL)
+===========================================================
+
+1. Views
+   1.1 Definition: View as a Relation Derived from Base Tables/Views
+   1.2 View Types
+       - Virtual Views (named query; reflects current DB state)
+       - Materialized Views (stored result; not automatically current)
+   1.3 Why Use Views
+       - Decompose complex queries
+       - Provide tailored “windows” for different users
+   1.4 Example: Creating and Querying a View
+
+2. Inner Joins
+   2.1 Syntax Equivalences
+       - FROM t1, t2  / CROSS JOIN  (Cartesian product)
+       - NATURAL JOIN (implicit attribute matching)
+       - JOIN ... ON  (theta join; explicit predicate)
+   2.2 Exam/Practice Guidance
+       - NATURAL JOIN brittleness (silent breakage when schemas change)
+       - Prefer explicit JOIN ... ON + WHERE for filtering
+   2.3 Example: Multi-table JOIN with Filtering
+
+3. Outer Joins
+   3.1 Dangling Tuples (Unmatched Rows) Concept
+   3.2 Inner vs Outer Join Behavior
+       - Inner: drops unmatched rows
+       - Outer: preserves unmatched rows using NULL padding
+   3.3 Outer Join Types
+       - LEFT JOIN (preserve LHS)
+       - RIGHT JOIN (preserve RHS)
+       - FULL JOIN (preserve both)
+   3.4 Keyword Rule: LEFT/RIGHT/FULL required to get an outer join
+
+4. Outer Join Patterns (Examples)
+   4.1 “All customers, including no orders” (LEFT JOIN)
+   4.2 “All orders, even if customer missing” (RIGHT JOIN)
+   4.3 “All students with optional grades” (LEFT JOIN)
+   4.4 Auditing / Mismatch Detection Across Sources (FULL JOIN + CASE)
+   4.5 Aggregation with Outer Joins
+       - NULL-handling using COALESCE(SUM(...), 0)
+
+===========================================================
+*/
 
 
 /**  Views

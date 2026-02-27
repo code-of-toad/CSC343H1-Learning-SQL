@@ -1,3 +1,67 @@
+/*
+===========================================================
+TABLE OF CONTENTS — SUBQUERIES (PostgreSQL)
+===========================================================
+
+1. Subqueries: Mental Model
+   1.1 Three Subquery “Shapes”
+       - Relation (FROM)
+       - Scalar (single value)
+       - Boolean (EXISTS / NOT EXISTS)
+   1.2 Cardinality + NULL Exam Traps
+
+2. Subquery in FROM (Derived Tables)
+   2.1 Syntax Rules (Parentheses + Alias Required)
+   2.2 JOIN vs Derived Table
+   2.3 CTE Alternative
+   2.4 PostgreSQL LATERAL Restriction
+
+3. Scalar Subqueries (Single-Value)
+   3.1 Exactly-One-Row Requirement
+   3.2 0 Rows → NULL
+   3.3 >1 Row → Runtime Error
+   3.4 Aggregate Rewrite Pattern (MAX/MIN)
+
+4. Multi-Row Subqueries (Quantifiers)
+   4.1 ANY / SOME (Existential Semantics)
+   4.2 ALL (Universal Semantics)
+   4.3 Empty-Set Edge Cases
+
+5. IN (Including Row-Value IN)
+   5.1 Membership Semantics
+   5.2 Row-Value Tuple Comparisons (PostgreSQL)
+   5.3 NULL Propagation Behavior
+
+6. NOT IN vs NOT EXISTS (NULL Trap)
+   6.1 Why NOT IN Is Dangerous
+   6.2 NULL-Safe Anti-Join with NOT EXISTS
+   6.3 Explicit NULL Filtering
+
+7. EXISTS / NOT EXISTS (Correlated Subqueries)
+   7.1 Boolean Existence Semantics
+   7.2 Correlation Mental Model
+   7.3 Self-Correlation & Renaming
+
+8. Scope and Aliasing Rules
+   8.1 Closest-Scope Name Resolution
+   8.2 Correlated vs Non-Correlated Subqueries
+   8.3 Explicit Aliasing for Clarity
+
+9. Rewriting IN Without IN
+   9.1 EXISTS Rewrite
+   9.2 JOIN + DISTINCT Rewrite
+   9.3 Duplicate Semantics Considerations
+
+10. Summary: Where Subqueries Can Go
+    - As a relation in FROM
+    - As a scalar value in WHERE
+    - With ANY / ALL / IN / EXISTS
+    - As operands to UNION / INTERSECT / EXCEPT
+
+===========================================================
+*/
+
+
 /**  Subqueries: mental model
 A subquery is a SELECT used inside another statement to supply:
     1. A relation (table of rows),
@@ -277,3 +341,11 @@ SELECT DISTINCT r.a
 FROM R AS r
 JOIN S AS s
     ON s.b = r.b;
+
+
+/**  SUMMARY: Where subqueries can go
+1. As a relation in a FROM clause
+2. As a value in a WHERE clause
+3. With ANY, ALL, IN, or EXISTS in a WHERE clause
+4. As operands to a UNION, INTERSECT, or EXCEPT
+*/
